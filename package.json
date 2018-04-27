@@ -1,0 +1,9 @@
+{
+  "name": "promise",
+  "version": "1.0.0",
+  "description": "Implement a Promise.",
+  "main": "index.js",
+  "keywords": ["promise"],
+  "author": "",
+  "license": "ISC"
+}
