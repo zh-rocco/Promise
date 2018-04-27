@@ -133,7 +133,7 @@ Promise.prototype.then = function(onResolved, onRejected) {
 };
 ```
 
-## 详细注释
+## 注释
 
 查看 index.js 文件
 
