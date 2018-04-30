@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Implement a Promise.",
   "main": "index.js",
+  "scripts": {
+    "test": "promises-aplus-tests ./index.js",
+    "test:all": "promises-aplus-tests ./index.full.js"
+  },
   "keywords": ["promise"],
   "author": "",
   "license": "ISC"

@@ -2,10 +2,119 @@
 
 ## 目录
 
+* [**入门**](#入门)
+* [**特性**](#特性)
+* [**示例**](#示例)
+* [**最佳实践**](#最佳实践)
 * [**实现**](#实现)
 * [**注释**](#注释)
 * [**测试**](#测试)
 * [**参考**](#参考)
+
+## 入门
+
+* [JavaScript Promise：简介 - Google](https://developers.google.com/web/fundamentals/primers/promises)
+* [Promise 对象 - ECMAScript 6 入门](http://es6.ruanyifeng.com/#docs/promise)
+
+## 特性
+
+1.  `new Promise( ... )` 返回一个 Promise 实例，可以被链式调用，即 `thenable`。
+2.  每次调用 `then` 函数时都会默认返回一个 **新** 的 `Promise` 实例，即可以继续链式调用。
+3.  `then` 函数内部可以显示 `return` 一个新的 `Promise` 实例，或者其他值。
+    * `then` 函数内部显示返回其他值时，会立即执行下一级的 `then` 函数。
+    * `then` 函数内部显示返回一个新的 Promise 实例时，下一级的 `then` 函数会在新的 `Promise` 实例状态确认后被调用。
+
+## 示例
+
+### throw new Error()
+
+1.
+
+```javascript
+new Promise((resolve, reject) => {
+  setTimeout(() => {
+    throw new Error('miss error');
+  }, 2000);
+})
+  .then(value => {
+    console.log(value);
+  })
+  .catch(error => {
+    console.log('mmm:', error);
+  });
+```
+
+因为异步函数的回调是在事件队列里单独拉出来执行的。所以在异步函数外面包裹 try-catch 是无法捕捉到回调函数里抛出的异常的。因为当回调函数从队列里被拉出来执行的时候 try-catch 所在的代码块已经执行完毕了。
+
+2.
+
+```javascript
+new Promise((resolve, reject) => {
+  throw new Error('miss error');
+})
+  .then(value => {
+    console.log(value);
+  })
+  .catch(error => {
+    console.log('mmm:', error);
+  });
+```
+
+此时 Promise 的 catch 函数可以捕获异常。
+
+## 最佳实践
+
+### 避免 then 函数里面嵌套 then 函数
+
+```javascript
+// bad
+Promise.resolve('hello world')
+  .then(value => {
+    console.log('outer: step 1');
+
+    return Promise.resolve(value)
+      .then(value => {
+        console.log('inner: step 1');
+        return value;
+      })
+      .then(value => {
+        console.log('inner: step 2');
+        return value;
+      });
+  })
+  .then(value => {
+    console.log('outer: step 2');
+    console.log(value);
+  });
+
+// good
+Promise.resolve('hello world')
+  .then(value => {
+    console.log('outer: step 1');
+
+    // 这里不继续 then
+    return Promise.resolve(value);
+  })
+  .then(value => {
+    console.log('inner: step 1');
+    return value;
+  })
+  .then(value => {
+    console.log('inner: step 2');
+    return value;
+  })
+  .then(value => {
+    console.log('outer: step 2');
+    console.log(value);
+  });
+
+// 两个函数都会输出:
+// outer: step 1
+// inner: step 1
+// inner: step 2
+// outer: step 2
+// hello world
+```
 
 ## 实现
 
@@ -241,3 +350,5 @@ npm run test
 * [剖析 Promise 内部结构，一步一步实现一个完整的、能通过所有 Test case 的 Promise 类](https://github.com/xieranmaya/blog/issues/3)
 
 - [Promises/A+](https://promisesaplus.com/)
+
+- [We have a problem with promises](https://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html)

@@ -237,6 +237,50 @@ var Promise = (function() {
     );
   };
 
+  Promise.prototype.spread = function(fn, onRejected) {
+    return this.then(function(values) {
+      return fn.apply(null, values);
+    }, onRejected);
+  };
+
+  Promise.prototype.inject = function(fn, onRejected) {
+    return this.then(function(v) {
+      return fn.apply(
+        null,
+        fn
+          .toString()
+          .match(/\((.*?)\)/)[1]
+          .split(',')
+          .map(function(key) {
+            return v[key];
+          })
+      );
+    }, onRejected);
+  };
+
+  Promise.prototype.delay = function(duration) {
+    return this.then(
+      function(value) {
+        return new Promise(function(resolve, reject) {
+          setTimeout(function() {
+            resolve(value);
+          }, duration);
+        });
+      },
+      function(reason) {
+        return new Promise(function(resolve, reject) {
+          setTimeout(function() {
+            reject(reason);
+          }, duration);
+        });
+      }
+    );
+  };
+
+  Promise.prototype.valueOf = function() {
+    return this.data;
+  };
+
   /**
    * 将现有对象转为 Promise 对象，并且状态为 resolved
    *
@@ -317,6 +361,11 @@ var Promise = (function() {
         );
       }
     });
+  };
+
+  Promise.fcall = function(fn) {
+    // 虽然 fn 可以接收到上一层 then 里传来的参数，但是其实是 undefined，所以跟没有是一样的，因为 resolve 没参数啊
+    return Promise.resolve().then(fn);
   };
 
   Promise.done = Promise.stop = function() {
