@@ -310,6 +310,7 @@ var Promise = (function() {
   /**
    * 将多个 Promise 实例，包装成一个新的 Promise 实例
    * promises 内所有的 promise 被 resolved 后，新的 Promise 实例才会被 resolve
+   * promises 内任一个 promise 被 rejected 后，新的 Promise 实例就会被 reject
    *
    * @param {Array}  promises
    *

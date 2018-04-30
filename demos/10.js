@@ -8,7 +8,7 @@ new Promise((resolve, reject) => {
     },
     error => {
       console.log('then 2:', error);
-      // return error;
+      return error;
     }
   )
   .catch(error => {
