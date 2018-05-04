@@ -16,7 +16,7 @@ function Promise(resolver) {
   var self = this;
   self.data = undefined; // Promise 的值
   self.status = 'pending'; // Promise 当前的状态
-  self.callbacks = []; // Promise 时的回调函数集，格式：[{onResolved: Function, onRejected: Function]
+  self.callbacks = []; // Promise 的回调函数集，格式：[{onResolved: Function, onRejected: Function}]
 
   // setTimeout 用于异步执行，模拟 micro Task
   function resolve(value) {
