@@ -3,6 +3,7 @@
 ## 目录
 
 * [**入门**](#入门)
+* [**优势**](#优势)
 * [**特性**](#特性)
 * [**示例**](#示例)
 * [**最佳实践**](#最佳实践)
@@ -15,6 +16,29 @@
 
 * [JavaScript Promise：简介 - Google](https://developers.google.com/web/fundamentals/primers/promises)
 * [Promise 对象 - ECMAScript 6 入门](http://es6.ruanyifeng.com/#docs/promise)
+
+## 优势
+
+### 避免回调地狱
+
+callback:
+![callback hell](https://github.com/zh-rocco/Promise/blob/master/images/callback-hell.png)
+
+promise:
+![promise](https://github.com/zh-rocco/Promise/blob/master/images/promise.png)
+
+### 转移控制权
+
+* callback 的控制权交给了调用方
+* promise 的控制权属于使用者
+
+例子：
+
+* **callback：** 小明给女神表白，说：“你要是不答应我，我就跳楼（传入回调）”，女神听了后不假思索地拒绝了小明，君子一言，驷马难追，小明遂跳楼（执行回调），卒。
+
+* **promise：**小刚也给女神表白（心想：女神不答应的话我也去跳楼），等待女神回复（pending），女神听了后不假思索地拒绝了小刚（状态变更为 reject），小刚突然想起美女小红，放弃自杀念头，生还（执行回调）。
+
+Promise 的威力！ :see_no_evil:。
 
 ## 特性
 
