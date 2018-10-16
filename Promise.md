@@ -22,9 +22,11 @@
 ### 避免回调地狱
 
 callback:
+
 ![callback hell](https://github.com/zh-rocco/Promise/blob/master/images/callback-hell.png)
 
 promise:
+
 ![promise](https://github.com/zh-rocco/Promise/blob/master/images/promise.png)
 
 ### 转移控制权
