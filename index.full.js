@@ -6,8 +6,8 @@ var Promise = (function() {
       );
     }
 
-    // why?
-    // if (!(this instanceof Promise)) return new Promise(executor);
+    // 兼容非 new 调用，如 Promise(functiong(resolve, reject) { ... })
+    if (!(this instanceof Promise)) return new Promise(executor);
 
     var self = this;
     self.data = undefined; // Promise 的值
