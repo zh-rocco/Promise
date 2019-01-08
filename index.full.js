@@ -12,7 +12,10 @@ var Promise = (function() {
     var self = this;
     self.data = undefined; // Promise 的值
     self.status = 'pending'; // Promise 当前的状态
-    self.callbacks = []; // Promise 的回调函数集，格式：[{onResolved: Function, onRejected: Function}]
+    // Promise 的回调函数集，格式：[{onResolved: Function, onRejected: Function}]
+    // 一般情况下，这个数组的长度为 1，
+    // 当多次调用同一个 Promise 的 then 方法时，如：p.then(() => {}); p.then(() => {}); 长度才会大于 1
+    self.callbacks = [];
 
     // setTimeout 用于异步执行，模拟 micro Task
     function resolve(value) {
