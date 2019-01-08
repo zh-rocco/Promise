@@ -133,7 +133,7 @@ var Promise = (function() {
       typeof onRejected === 'function'
         ? onRejected
         : function(r) {
-            throw r;
+            throw r; // 为传入 onRejected 时（也就是 reject 未被处理），保留 reject 状态
           };
 
     var self = this;
