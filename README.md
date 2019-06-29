@@ -1,5 +1,7 @@
 # Promise
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/zh-rocco/Promise.svg)](https://greenkeeper.io/)
+
 ## 目录
 
 * [**实现**](#实现)
