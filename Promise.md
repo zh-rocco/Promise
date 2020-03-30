@@ -80,6 +80,23 @@ new Promise((resolve, reject) => {
 
 此时 Promise 的 catch 函数可以捕获异常。
 
+3. 正确做法
+
+
+```javascript
+new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject(new Error('miss error'));
+  }, 2000);
+})
+  .then(value => {
+    console.log(value);
+  })
+  .catch(error => {
+    console.log('mmm:', error);
+  });
+```
+
 ## 最佳实践
 
 ### 避免 then 函数里面嵌套 then 函数
